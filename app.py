@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtGui
 from PyQt5 import *
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
+from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from Tx_UI import Ui_MainWindow
 
 class AppWindow(QMainWindow):
@@ -12,9 +12,16 @@ class AppWindow(QMainWindow):
         self.ui.SaveandRestart.clicked.connect(self.SaveandRestart_act)
         self.show()  
     def SaveandRestart_act(self):
-	# Hiding pushbutton from the main window 
-        # after button get clicked.  
-        self.ui.SaveandRestart.hide()  
+	###source code for Save to database and restart:
+
+	##end of the sour code for Save and restart  
+        msgBox = QMessageBox()
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText("Updated sensor attribute and restarted background SW")
+        msgBox.setStandardButtons(QMessageBox.Ok)     
+        returnValue = msgBox.exec()
+        if returnValue == QMessageBox.Ok:
+        	print('OK clicked')
 
 
 
