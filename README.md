@@ -17,3 +17,8 @@ To install Qt on host computer :
 
 #command to convert *.ui file to python file : 
   pyuic5 file_name.ui > file_name.py
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+For start UI together with Pi boots up.
+copy file TFi_UI.desktop to /etc/xdg/autostart
+(modify the path in TFi_UI.desktop if you put the UI python in another place not Desktop)
