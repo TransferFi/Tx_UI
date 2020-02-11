@@ -17,20 +17,21 @@ class AppWindow(QMainWindow):
         self.ui.SaveandRestart.clicked.connect(self.SaveandRestart_act)
         self.show()  
     def SaveandRestart_act(self):
-	###source code for Save to database and restart:
+    ###source code for Save to database and restart:
 
-	##end of the sour code for Save and restart  
+    ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
         msgBox.setText("Updated sensor attribute and restarted background SW")
         msgBox.setStandardButtons(QMessageBox.Ok)     
         returnValue = msgBox.exec()
         if returnValue == QMessageBox.Ok:
-        	print('OK clicked')
+            print('OK clicked')
 
 
 
 app = QApplication(sys.argv)
 w = AppWindow()
+#w.resize(765,1500)
 w.show()
 sys.exit(app.exec_())
