@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>885</width>
-    <height>1001</height>
+    <width>688</width>
+    <height>921</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,139 +21,63 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="3" rowspan="2" colspan="2">
-     <widget class="QLabel" name="label_11">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>../../Pictures/Screenshot from 2020-02-06 17-40-16.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Data Channel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0" colspan="5">
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="4">
-     <widget class="QPushButton" name="Restart_TimeSharing">
-      <property name="text">
-       <string>Restart</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" colspan="2">
-     <widget class="QLabel" name="label_12">
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>1. Sensor Database</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="5">
-     <widget class="QGraphicsView" name="graphicsView"/>
-    </item>
-    <item row="3" column="0" colspan="5">
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="rowCount">
-       <number>3</number>
-      </property>
-      <property name="columnCount">
-       <number>6</number>
-      </property>
-      <row/>
-      <row/>
-      <row/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-     </widget>
-    </item>
-    <item row="12" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Data Log</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="1">
-     <widget class="QPushButton" name="Restart_DataLog">
-      <property name="text">
-       <string>Restart</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="4">
-     <widget class="QPushButton" name="Restart_wedLocalServer">
-      <property name="text">
-       <string>Restart</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1" colspan="2">
-     <widget class="QPushButton" name="RunManualPhase">
+    <item row="11" column="2" colspan="2">
+     <widget class="QLabel" name="label_4">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Run Manual Phase</string>
+       <string>Time Sharing Sequence</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Read Sensor Data</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0" colspan="2">
-     <widget class="QLabel" name="label_14">
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+    <item row="12" column="2" colspan="2">
+     <widget class="QLabel" name="label_5">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="text">
-       <string>3. Boot Up Features</string>
+       <string>Output to Default Web/Local Sever</string>
       </property>
      </widget>
     </item>
-    <item row="13" column="1">
-     <widget class="QPushButton" name="Restart_ReadSensorData">
+    <item row="4" column="0" colspan="2">
+     <widget class="QPushButton" name="SaveandRestart">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Save and Restart</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="1">
+     <widget class="QPushButton" name="Restart_DataChannel">
       <property name="text">
        <string>Restart</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0" colspan="5">
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+    <item row="15" column="1">
+     <widget class="QPushButton" name="Copy_log">
+      <property name="text">
+       <string>Copy</string>
+      </property>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>Copy Log File to Desktop</string>
       </property>
      </widget>
     </item>
@@ -171,10 +95,31 @@
       </property>
      </widget>
     </item>
+    <item row="8" column="0">
+     <widget class="QTextEdit" name="text_InputPhaseShiftValue">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+      </property>
+     </widget>
+    </item>
     <item row="14" column="0">
      <widget class="QLabel" name="label_7">
       <property name="text">
        <string>Output Data to MODBUS</string>
+      </property>
+     </widget>
+    </item>
+    <item row="13" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Read Sensor Data</string>
       </property>
      </widget>
     </item>
@@ -192,10 +137,105 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_10">
+    <item row="13" column="2" colspan="2">
+     <widget class="QLabel" name="label_6">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
-       <string>Diagnostic Dashboard</string>
+       <string>Output to Custom Web Server</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0" colspan="5">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="QLabel" name="label_12">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>1. Sensor Database</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Data Log</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3" rowspan="2" colspan="2">
+     <widget class="QLabel" name="label_11">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../Pictures/Screenshot from 2020-02-06 17-40-16.png</pixmap>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="5">
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+    <item row="10" column="0" colspan="2">
+     <widget class="QLabel" name="label_14">
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>3. Boot Up Features</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="1">
+     <widget class="QPushButton" name="Restart_DataLog">
+      <property name="text">
+       <string>Restart</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Data Channel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1" colspan="2">
+     <widget class="QPushButton" name="RunManualPhase">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Run Manual Phase</string>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="4">
+     <widget class="QPushButton" name="Restart_wedLocalServer">
+      <property name="text">
+       <string>Restart</string>
       </property>
      </widget>
     </item>
@@ -216,100 +256,60 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="1">
-     <widget class="QPushButton" name="Restart_DataChannel">
+    <item row="3" column="0" colspan="5">
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="rowCount">
+       <number>3</number>
+      </property>
+      <property name="columnCount">
+       <number>6</number>
+      </property>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+     </widget>
+    </item>
+    <item row="13" column="1">
+     <widget class="QPushButton" name="Restart_ReadSensorData">
       <property name="text">
        <string>Restart</string>
       </property>
      </widget>
     </item>
-    <item row="8" column="0">
-     <widget class="QTextEdit" name="text_InputPhaseShiftValue">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
+    <item row="5" column="0" colspan="5">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="15" column="1">
-     <widget class="QPushButton" name="Copy_log">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_10">
       <property name="text">
-       <string>Copy</string>
+       <string>Diagnostic Dashboard</string>
       </property>
      </widget>
     </item>
-    <item row="15" column="0">
-     <widget class="QLabel" name="label_8">
+    <item row="11" column="4">
+     <widget class="QPushButton" name="Restart_TimeSharing">
       <property name="text">
-       <string>Copy Log File to Desktop</string>
+       <string>Restart</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="2">
-     <widget class="QPushButton" name="SaveandRestart">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Save and Restart</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Time Sharing Sequence</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="3">
-     <widget class="QLabel" name="label_6">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Output to Custom Web Server</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="3" colspan="2">
+    <item row="14" column="2" colspan="2">
      <widget class="QTextEdit" name="text_InputUrlCusServer">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="3">
-     <widget class="QLabel" name="label_5">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Output to Default Web/Local Sever</string>
       </property>
      </widget>
     </item>
@@ -320,8 +320,8 @@ color: rgb(0, 0, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>885</width>
-     <height>21</height>
+     <width>688</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
