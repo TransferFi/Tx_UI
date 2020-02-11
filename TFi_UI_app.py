@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+import os
+import time
+
 import sys
 from PyQt5 import QtCore, QtGui
 from PyQt5 import *

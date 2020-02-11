@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=TFi_UI
+Comment=vietmq RPI Infoscreen
+NoDisplay=false
+Exec=sudo /usr/bin/lxterminal -e /home/pi/Desktop/UI/TFi_UI_app.py
+NotShowIn=GNOME;KDE;XFCE;
