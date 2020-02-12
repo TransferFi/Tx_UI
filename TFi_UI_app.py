@@ -2,7 +2,8 @@
 
 import os
 import time
-
+import validators
+import re
 import sys
 from PyQt5 import QtCore, QtGui
 from PyQt5 import *
@@ -64,11 +65,16 @@ class AppWindow(QMainWindow):
             
     def Restart_CustomServer_act(self):
     ###TO DO check the input text is not empty and valid url:
-
+        text_InputUrlCusServer = self.ui.text_InputUrlCusServer.toPlainText()
+        msg = "Updated and start stream data to URL"
+        if text_InputUrlCusServer == '':
+            msg = "Please Input URL"
+        elif not validators.url(text_InputUrlCusServer):    
+            msg = "Please input the valid URL"
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Updated and Restart stream data to new URL web Server")
+        msgBox.setText(msg)
         msgBox.setStandardButtons(QMessageBox.Ok)     
         returnValue = msgBox.exec()
         if returnValue == QMessageBox.Ok:
@@ -86,11 +92,16 @@ class AppWindow(QMainWindow):
             pass
     def RunManualPhase_act(self):
     ###TO DO check valid phase shift and and format require:
-
+        text_InputPhaseShiftValue = self.ui.text_InputPhaseShiftValue.toPlainText()
+        msg = "Phase Shift values was set"
+        if text_InputPhaseShiftValue == '':
+            msg = "Please input Phase values"
+        elif not re.match("^[0-9 ]+$", text_InputPhaseShiftValue):
+            msg = "Phase shift input wrong format, separate each value by space"
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Phase Shift values was set")
+        msgBox.setText(msg)
         msgBox.setStandardButtons(QMessageBox.Ok)     
         returnValue = msgBox.exec()
         if returnValue == QMessageBox.Ok:
