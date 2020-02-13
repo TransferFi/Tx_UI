@@ -5,7 +5,7 @@ import time
 import validators
 import re
 import sys
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import *
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from Tx_UI import Ui_MainWindow
@@ -13,6 +13,9 @@ from Tx_UI import Ui_MainWindow
 class AppWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.RemoveSensor_EventList = []
+        self.OnOffSensor_EventList = []
+        self.rowPosition = 0
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.SaveandRestart.clicked.connect(self.SaveandRestart_act)
@@ -25,8 +28,37 @@ class AppWindow(QMainWindow):
         self.ui.Restart_DataLog.clicked.connect(self.Restart_DataLog_act)
         self.ui.Copy_log.clicked.connect(self.Copy_log_act)
         self.ui.Restart_DataChannel.clicked.connect(self.Restart_DataChannel_act)
+        self.ui.Add_Sensor.clicked.connect(self.Add_Sensor_act)
+        ##TBD
+        #TBD create remove button
+        RemoveSensor = QtWidgets.QPushButton("remove")
+        RemoveSensor.clicked.connect(self.deleteClicked)
+        self.ui.tableWidget.setCellWidget(self.rowPosition, 6, RemoveSensor)
+        
         self.show()  
-
+    
+    def Add_Sensor_act(self):
+        #add new row for input sensor attributes
+        self.rowPosition = self.ui.tableWidget.rowCount()
+        self.ui.tableWidget.insertRow(self.rowPosition)
+        # create a checkbox for on/off stream sensor data to server
+        item = QtWidgets.QTableWidgetItem()
+        item.setCheckState(QtCore.Qt.Unchecked)
+        self.ui.tableWidget.setItem(self.rowPosition, 0, item)
+        #TBD create remove button
+        RemoveSensor = QtWidgets.QPushButton("remove")
+        RemoveSensor.clicked.connect(self.deleteClicked)
+        self.ui.tableWidget.setCellWidget(self.rowPosition, 6, RemoveSensor)
+        
+    @QtCore.pyqtSlot()
+    def deleteClicked(self):
+        button = self.sender()
+        if button:
+            row = self.ui.tableWidget.indexAt(button.pos()).row()
+            print("receive remove event from row ::", row)
+            self.ui.tableWidget.removeRow(row)       
+        
+        
     def Restart_DataChannel_act(self):
     ###
 
