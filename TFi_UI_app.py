@@ -15,13 +15,6 @@ class AppWindow(QMainWindow):
     def __init__(self,sensors_database, sensors_database_FileName):
         super().__init__()
         self.sensors_database = sensors_database
-        self.NewSensor_attribute = {
-            "Stream_to_Server" : "",
-            "ID" : "",
-            "MAC" : "",
-            "Portion_of_Time" : "",
-            "Best_Phase_Shift" : ""
-        }
         self.sensors_database_FileName = sensors_database_FileName
         #test load database
         #dict = {
@@ -105,7 +98,7 @@ class AppWindow(QMainWindow):
         self.ui.tableWidget.setItem(self.rowPosition, 0, item)
         
         for index_column in range(1,5):
-            item = QtWidgets.QTableWidgetItem('xx')
+            item = QtWidgets.QTableWidgetItem('')
             self.ui.tableWidget.setItem(self.rowPosition, index_column, item) 
         
         #TBD create remove button
@@ -114,7 +107,14 @@ class AppWindow(QMainWindow):
         self.ui.tableWidget.setCellWidget(self.rowPosition, 6, RemoveSensor)
         # add new empty sensor to list database
         print("[INFO] user add new row, rowPosition ::", self.rowPosition)
-        self.sensors_database['Sensors_Attribute'].append(self.NewSensor_attribute)
+        NewSensor_attribute = {
+            "Best_Phase_Shift" : "",
+            "ID" : "",
+            "MAC" : "",
+            "Portion_of_Time" : "",
+            "Stream_to_Server" : ""
+        }        
+        self.sensors_database['Sensors_Attribute'].append(NewSensor_attribute)
         
         
     @QtCore.pyqtSlot()
@@ -182,13 +182,26 @@ class AppWindow(QMainWindow):
             pass        
     def SaveandRestart_act(self):
     ###source code for Save to database and restart:
-        for index_row in range(self.ui.tableWidget.rowCount()-1):####[vietmaiquoc] need modify 
-            print("#########[user save data base]##########")
-            #print(index_row)
-            print("check state :: ",self.ui.tableWidget.item(index_row, 0).checkState())
-            for index_column in range(1, 5):
-                print(self.ui.tableWidget.item(index_row, index_column).text())
+        print("[INFO]#########[user save data base]##########")
+        print("number of Sensor : ",self.ui.tableWidget.rowCount())
         
+        self.sensors_database['Number_of_Rx'] = str(self.ui.tableWidget.rowCount())
+        
+        for index_row in range(self.ui.tableWidget.rowCount()):
+            if not int(self.ui.tableWidget.item(index_row, 0).checkState()):
+                self.sensors_database['Sensors_Attribute'][index_row]['Stream_to_Server'] = "0"
+            else:
+                self.sensors_database['Sensors_Attribute'][index_row]['Stream_to_Server'] = "1"
+            self.sensors_database['Sensors_Attribute'][index_row]['ID'] = self.ui.tableWidget.item(index_row, 1).text()
+            self.sensors_database['Sensors_Attribute'][index_row]['MAC'] = self.ui.tableWidget.item(index_row, 2).text()
+            self.sensors_database['Sensors_Attribute'][index_row]['Best_Phase_Shift'] = self.ui.tableWidget.item(index_row, 3).text()
+            self.sensors_database['Sensors_Attribute'][index_row]['Portion_of_Time'] = self.ui.tableWidget.item(index_row, 4).text()
+        # save changing
+        for i in range(self.ui.tableWidget.rowCount()):
+            print("[INFO]",self.sensors_database['Sensors_Attribute'][i])
+        jsonFile = open(self.sensors_database_FileName, "w+")
+        jsonFile.write(json.dumps(self.sensors_database, sort_keys=True, indent=4))
+        jsonFile.close()        
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
