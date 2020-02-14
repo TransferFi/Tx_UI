@@ -259,12 +259,11 @@ color: rgb(0, 0, 0);</string>
     <item row="3" column="0" colspan="5">
      <widget class="QTableWidget" name="tableWidget">
       <property name="rowCount">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="columnCount">
        <number>7</number>
       </property>
-      <row/>
       <column>
        <property name="text">
         <string>ON/OFF</string>
@@ -300,19 +299,6 @@ color: rgb(0, 0, 0);</string>
         <string/>
        </property>
       </column>
-      <item row="0" column="0">
-       <property name="text">
-        <string notr="true"/>
-       </property>
-       <property name="checkState">
-        <enum>Unchecked</enum>
-       </property>
-      </item>
-      <item row="0" column="6">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
      </widget>
     </item>
     <item row="13" column="1">
