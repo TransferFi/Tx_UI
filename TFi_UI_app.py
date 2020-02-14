@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import json
 import os
 import time
 import validators
@@ -11,8 +12,32 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from Tx_UI import Ui_MainWindow
 
 class AppWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self,sensors_database, sensors_database_FileName):
         super().__init__()
+        self.sensors_database = sensors_database
+        self.NewSensor_attribute = {
+            "Stream_to_Server" : "",
+            "ID" : "",
+            "MAC" : "",
+            "Portion_of_Time" : "",
+            "Best_Phase_Shift" : ""
+        }
+        self.sensors_database_FileName = sensors_database_FileName
+        #test load database
+        #dict = {
+        #    "Stream_to_Server" : "",
+        #    "ID" : "",
+        #    "MAC" : "",
+        #    "Portion_of_Time" : "",
+        #    "Best_Phase_Shift" : "xxx"
+        #}
+        #self.sensors_database['Sensors_Attribute'].append(dict)
+        #print(self.sensors_database)
+        # save changing
+        #jsonFile = open(self.sensors_database_FileName, "w+")
+        #jsonFile.write(json.dumps(self.sensors_database, sort_keys=True, indent=4))
+        #jsonFile.close()
+        #finish test
         self.RemoveSensor_EventList = []
         self.OnOffSensor_EventList = []
         self.rowPosition = 0
@@ -34,6 +59,39 @@ class AppWindow(QMainWindow):
         RemoveSensor = QtWidgets.QPushButton("remove")
         RemoveSensor.clicked.connect(self.deleteClicked)
         self.ui.tableWidget.setCellWidget(self.rowPosition, 6, RemoveSensor)
+        #[vietmaiquoc]load database to UI, for small database. TBD if bigger
+        for index_row in range(int(self.sensors_database['Number_of_Rx'])):
+            #print(index_row)
+            #create row on UI and load data
+            self.ui.tableWidget.insertRow(index_row)
+            # create a checkbox for on/off stream sensor data to server
+            item = QtWidgets.QTableWidgetItem()
+            if not int(self.sensors_database['Sensors_Attribute'][index_row]['Stream_to_Server']):
+                item.setCheckState(QtCore.Qt.Unchecked)
+            else:
+                item.setCheckState(QtCore.Qt.Checked)
+            self.ui.tableWidget.setItem(index_row, 0, item)
+            #TBD create remove button
+            RemoveSensor = QtWidgets.QPushButton("remove")
+            RemoveSensor.clicked.connect(self.deleteClicked)
+            self.ui.tableWidget.setCellWidget(index_row, 6, RemoveSensor)
+            #load ID
+            item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['ID'])
+            self.ui.tableWidget.setItem(index_row, 1, item)
+            #
+            item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['MAC'])
+            self.ui.tableWidget.setItem(index_row, 2, item)            
+            #
+            item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['Best_Phase_Shift'])
+            self.ui.tableWidget.setItem(index_row, 3, item)            
+            #
+            item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['Portion_of_Time'])
+            self.ui.tableWidget.setItem(index_row, 4, item)            
+            #[vietmaiquoc]TBD
+            #item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['Status'])
+            #self.ui.tableWidget.setItem(index_row, 5, item)            
+        #[vietmaiquoc] finished load data to UI    
+            
         
         self.show()  
     
@@ -45,19 +103,30 @@ class AppWindow(QMainWindow):
         item = QtWidgets.QTableWidgetItem()
         item.setCheckState(QtCore.Qt.Unchecked)
         self.ui.tableWidget.setItem(self.rowPosition, 0, item)
+        
+        for index_column in range(1,5):
+            item = QtWidgets.QTableWidgetItem('xx')
+            self.ui.tableWidget.setItem(self.rowPosition, index_column, item) 
+        
         #TBD create remove button
         RemoveSensor = QtWidgets.QPushButton("remove")
         RemoveSensor.clicked.connect(self.deleteClicked)
         self.ui.tableWidget.setCellWidget(self.rowPosition, 6, RemoveSensor)
+        # add new empty sensor to list database
+        print("[INFO] user add new row, rowPosition ::", self.rowPosition)
+        self.sensors_database['Sensors_Attribute'].append(self.NewSensor_attribute)
+        
         
     @QtCore.pyqtSlot()
     def deleteClicked(self):
         button = self.sender()
         if button:
             row = self.ui.tableWidget.indexAt(button.pos()).row()
-            print("receive remove event from row ::", row)
+            print("[INFO] user remove row, rowPosition ::", row)
             self.ui.tableWidget.removeRow(row)       
-        
+            print("[INFO] Delete this sensor's attributes from database ::", row)
+            del self.sensors_database['Sensors_Attribute'][row]
+            print(self.sensors_database)
         
     def Restart_DataChannel_act(self):
     ###
@@ -113,7 +182,13 @@ class AppWindow(QMainWindow):
             pass        
     def SaveandRestart_act(self):
     ###source code for Save to database and restart:
-
+        for index_row in range(self.ui.tableWidget.rowCount()-1):####[vietmaiquoc] need modify 
+            print("#########[user save data base]##########")
+            #print(index_row)
+            print("check state :: ",self.ui.tableWidget.item(index_row, 0).checkState())
+            for index_column in range(1, 5):
+                print(self.ui.tableWidget.item(index_row, index_column).text())
+        
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
@@ -186,9 +261,14 @@ class AppWindow(QMainWindow):
         if returnValue == QMessageBox.Ok:
             pass
 
+#open Json file
+sensors_database_FileName = "TFi_Tx_configuration.json"
+jsonFile = open("TFi_Tx_configuration.json", "r") # Open the JSON file for reading
+sensors_database = json.load(jsonFile) # Read the JSON into the buffer
+jsonFile.close() # Close the JSON file
 
 app = QApplication(sys.argv)
-w = AppWindow()
+w = AppWindow(sensors_database,sensors_database_FileName)
 #w.resize(765,1500)
 w.show()
 sys.exit(app.exec_())
