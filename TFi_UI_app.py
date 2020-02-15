@@ -275,8 +275,8 @@ class AppWindow(QMainWindow):
             pass
 
 #open Json file
-sensors_database_FileName = "TFi_Tx_configuration.json"
-jsonFile = open("TFi_Tx_configuration.json", "r") # Open the JSON file for reading
+sensors_database_FileName = "/home/pi/Desktop/UI/TFi_Tx_configuration.json"
+jsonFile = open(sensors_database_FileName, "r") # Open the JSON file for reading
 sensors_database = json.load(jsonFile) # Read the JSON into the buffer
 jsonFile.close() # Close the JSON file
 
