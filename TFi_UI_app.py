@@ -213,14 +213,14 @@ class AppWindow(QMainWindow):
     def RunManualPhase_act(self):
     ###TO DO check valid phase shift and and format require:
         text_InputPhaseShiftValue = self.ui.text_InputPhaseShiftValue.toPlainText()
-        msg = "Phase Shift values was set"
+        msg = "***Stop TimeSharing, Set new phase value ***"
         if text_InputPhaseShiftValue == '':
             msg = "Please input Phase values"
         elif not re.match("^[0-9 ]+$", text_InputPhaseShiftValue):
             msg = "Phase shift input wrong format, separate each value by space"
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
-        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setIcon(QMessageBox.Warning)
         msgBox.setText(msg)
         msgBox.setStandardButtons(QMessageBox.Ok)     
         returnValue = msgBox.exec()
