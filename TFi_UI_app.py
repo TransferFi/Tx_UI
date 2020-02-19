@@ -54,6 +54,21 @@ class AppWindow(QMainWindow):
         self.ui.Restart_DataChannel.clicked.connect(self.Restart_DataChannel_act)
         self.ui.Add_Sensor.clicked.connect(self.Add_Sensor_act)
         self.ui.ReloadSensorData.clicked.connect(self.ReloadSensorData_act)
+        ##
+        self.scene = QtWidgets.QGraphicsScene()
+        self.scene.setSceneRect(0,0,600,300)
+        self.ui.graphicsView.setScene(self.scene)
+        self.pen = QtGui.QPen(QtCore.Qt.blue)
+        #r = QtCore.QRectF(QtCore.QPointF(20, 200), QtCore.QSizeF(30, 30))
+        self.scene.addLine(300,0, 300, 296,self.pen)
+        self.scene.addLine(0,148, 600, 148,self.pen)
+        self.scene.addRect(0,0,600,296)
+        self.scene.addEllipse(0,0, 77, 27,self.pen)
+        self.scene.addText("10,10,10,10")
+        #self.scene.addEllipse(300,0, 10, 10,self.pen)
+        #self.scene.addEllipse(300,50, 10, 10,self.pen)
+        #self.scene.addEllipse(0,-300, 10, 10,self.pen)
+        #self.scene.addEllipse(-300,-300, 10, 10,self.pen)
         ##TBD
         #TBD create remove button
         RemoveSensor = QtWidgets.QPushButton("remove")
