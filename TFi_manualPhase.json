@@ -1,0 +1,23 @@
+{
+    "Phase_Shift_Value": "40,20,30,40",
+    "Sensors_Attribute": [
+        {
+            "ID": "1",
+            "MAC": "D1:48:F5:39:D9:DB",
+            "RSSI": "0.05",
+            "Vcap": "0"
+        },
+        {
+            "ID": "2",
+            "MAC": "C9:81:D8:3B:6A:CB",
+            "RSSI": "0.05",
+            "Vcap": "0"
+        },
+        {
+            "ID": "3",
+            "MAC": "C1:4E:87:A0:9B:2A",
+            "RSSI": "0.05",
+            "Vcap": "0"
+        }
+    ]
+}
