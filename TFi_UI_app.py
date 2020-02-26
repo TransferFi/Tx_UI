@@ -11,6 +11,7 @@ import copy
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import *
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
+from PyQt5.QtGui import QPainter, QColor, QPen
 from Tx_UI import Ui_MainWindow
 
 class AppWindow(QMainWindow):
@@ -55,6 +56,10 @@ class AppWindow(QMainWindow):
         self.ui.Add_Sensor.clicked.connect(self.Add_Sensor_act)
         self.ui.ReloadSensorData.clicked.connect(self.ReloadSensorData_act)
         ##
+        self.x0_coordinate = 300
+        self.y0_coordinate = 148
+        self.xplot_coordinate = 0
+        self.yplot_coordinate = 0
         self.scene = QtWidgets.QGraphicsScene()
         self.scene.setSceneRect(0,0,600,300)
         self.ui.graphicsView.setScene(self.scene)
@@ -63,12 +68,9 @@ class AppWindow(QMainWindow):
         self.scene.addLine(300,0, 300, 296,self.pen)
         self.scene.addLine(0,148, 600, 148,self.pen)
         self.scene.addRect(0,0,600,296)
-        self.scene.addEllipse(0,0, 77, 27,self.pen)
-        self.scene.addText("10,10,10,10")
-        #self.scene.addEllipse(300,0, 10, 10,self.pen)
-        #self.scene.addEllipse(300,50, 10, 10,self.pen)
-        #self.scene.addEllipse(0,-300, 10, 10,self.pen)
-        #self.scene.addEllipse(-300,-300, 10, 10,self.pen)
+        #center coordinates: x = 300, y = 148, but need to adjust : x = x - 35, y = y - 13
+        self.phaseEllipseCover = self.scene.addEllipse(265,135, 77, 27,self.pen)
+        self.phaseTextDisplay = self.scene.addText("00,00,00,00").setPos(265,135)
         ##TBD
         #TBD create remove button
         RemoveSensor = QtWidgets.QPushButton("remove")
@@ -81,6 +83,7 @@ class AppWindow(QMainWindow):
             self.ui.tableWidget.insertRow(index_row)
             # create a checkbox for on/off stream sensor data to server
             item = QtWidgets.QTableWidgetItem()
+            item.setText("LocalServer")
             if not int(self.sensors_database['Sensors_Attribute'][index_row]['Stream_to_Server']):
                 item.setCheckState(QtCore.Qt.Unchecked)
             else:
@@ -103,8 +106,9 @@ class AppWindow(QMainWindow):
             item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['Portion_of_Time'])
             self.ui.tableWidget.setItem(index_row, 4, item)            
             #[vietmaiquoc]TBD
-            #item = QtWidgets.QTableWidgetItem(self.sensors_database['Sensors_Attribute'][index_row]['Status'])
-            #self.ui.tableWidget.setItem(index_row, 5, item)            
+            item = QtWidgets.QTableWidgetItem('')
+            self.ui.tableWidget.setItem(index_row, 5, item)            
+            item.setBackground(QColor(0, 0, 255, 127))
         #[vietmaiquoc] finished load data to UI    
             
         
@@ -155,11 +159,17 @@ class AppWindow(QMainWindow):
         # create a checkbox for on/off stream sensor data to server
         item = QtWidgets.QTableWidgetItem()
         item.setCheckState(QtCore.Qt.Unchecked)
+        item.setText("LocalServer")
         self.ui.tableWidget.setItem(self.rowPosition, 0, item)
         
         for index_column in range(1,5):
             item = QtWidgets.QTableWidgetItem('')
             self.ui.tableWidget.setItem(self.rowPosition, index_column, item) 
+        
+        #[vietmaiquoc]TBD
+        item = QtWidgets.QTableWidgetItem('')
+        self.ui.tableWidget.setItem(self.rowPosition, 5, item)            
+        item.setBackground(QColor(0, 0, 255, 127))
         
         #TBD create remove button
         RemoveSensor = QtWidgets.QPushButton("remove")
@@ -203,8 +213,10 @@ class AppWindow(QMainWindow):
             pass
 
     def Copy_log_act(self):
-    ###
-
+    ###[vietmaiquoc] consider stop before copy
+        os.system('cp /home/pi/TFi_Tx_Platform/log_ManualPhase_startup.txt /home/pi/Desktop/')
+        os.system('cp /home/pi/TFi_Tx_Platform/log_TimeSharing_startup.txt /home/pi/Desktop/')
+        os.system('cp /home/pi/TFi_Tx_Platform/log_BLE_startup.txt /home/pi/Desktop/')
     ##end of the sour code for Save and restart  
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
@@ -302,12 +314,14 @@ class AppWindow(QMainWindow):
             jsonFile.close()        
             ##save and restart related service
             print("[WARN] Save to database")
-            print("[INFO] stop current manual phase")
+            print("[WARN] stop current manual phase")
             os.system('sudo systemctl stop TFiManualPhase.service')
             os.system('sudo systemctl stop TFiTimeSharing.service')
             print("[WARN] sudo systemctl stop TFiTimeSharing.service")
-            #os.system('sudo systemctl stop TFiBLE.service')
+            os.system('sudo systemctl stop TFiBLE.service')
             print("[WARN] sudo systemctl stop TFiBLE.service")
+            #os.system('sudo systemctl stop TFiLocalServer.service')
+            #print("[WARN] sudo systemctl stop TFiLocalServer.service")
             #[vietmaiquoc] consider to check datachannel working or not
             #[vietmaiquoc] consider to restart the local service and tfi server
             msgBox = QMessageBox()
@@ -319,9 +333,12 @@ class AppWindow(QMainWindow):
                 pass
             #time.sleep(2)
             print("[WARN] sudo systemctl start TFiBLE.service")    
-            #os.system('sudo systemctl start TFiBLE.service')
+            os.system('sudo systemctl start TFiBLE.service')
             print("[WARN] sudo systemctl start TFiTimeSharing.service")
-            #os.system('sudo systemctl start TFiTimeSharing.service')
+            os.system('sudo systemctl start TFiTimeSharing.service')
+            #print("[WARN] sudo systemctl start TFiLocalServer.service")            
+            #[vietmaiquoc] comment for testing the data difference on local and server
+            #os.system('sudo systemctl start TFiLocalServer.service')
             ##end of the sour code for Save and restart  
         else:
             msgBox = QMessageBox()
@@ -359,6 +376,24 @@ class AppWindow(QMainWindow):
             #stop
             print("[WARN] sudo systemctl stop TFiTimeSharing.service")
             os.system('sudo systemctl stop TFiTimeSharing.service')
+            ##[vietmaiquoc] plot something
+            self.scene.clear()
+            self.scene.addLine(300,0, 300, 296,self.pen)
+            self.scene.addLine(0,148, 600, 148,self.pen)
+            self.scene.addRect(0,0,600,296)
+            tmp_manueal_phase_value = text_InputPhaseShiftValue.split(",")
+            self.xplot_coordinate = ((int(tmp_manueal_phase_value[0])+int(tmp_manueal_phase_value[3]))/2 - (int(tmp_manueal_phase_value[1])+ int(tmp_manueal_phase_value[2]))/2)
+            self.yplot_coordinate = ((int(tmp_manueal_phase_value[0])+int(tmp_manueal_phase_value[1]))/2 - (int(tmp_manueal_phase_value[2])+ int(tmp_manueal_phase_value[3]))/2)
+            #scale y coordinate 
+            self.yplot_coordinate = (self.yplot_coordinate*148/180)
+            print(tmp_manueal_phase_value)
+            print(self.xplot_coordinate)
+            print(self.yplot_coordinate)
+            #center coordinates: x = 300, y = 148, but need to adjust : x = x - 35, y = y - 13
+            self.phaseEllipseCover = self.scene.addEllipse((self.xplot_coordinate+self.x0_coordinate)-35,(self.y0_coordinate-self.yplot_coordinate)-13, 82, 27,self.pen)
+            self.phaseTextDisplay = self.scene.addText(text_InputPhaseShiftValue).setPos((self.xplot_coordinate+self.x0_coordinate)-35,(self.y0_coordinate-self.yplot_coordinate)-13)               
+            ##[vietmaiquoc] finish plot
+            
             print("[INFO] stop current manual phase")
             os.system('sudo systemctl stop TFiManualPhase.service')
     ##end of the sour code for Save and restart  
