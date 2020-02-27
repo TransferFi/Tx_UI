@@ -214,17 +214,26 @@ class AppWindow(QMainWindow):
 
     def Copy_log_act(self):
     ###[vietmaiquoc] consider stop before copy
+        print("[WARN] stop current system to get the log")
+        os.system('sudo systemctl stop TFiManualPhase.service')
+        os.system('sudo systemctl stop TFiTimeSharing.service')    
+        os.system('sudo systemctl stop TFiBLE.service')
+        time.sleep(0.5)
         os.system('cp /home/pi/TFi_Tx_Platform/log_ManualPhase_startup.txt /home/pi/Desktop/')
         os.system('cp /home/pi/TFi_Tx_Platform/log_TimeSharing_startup.txt /home/pi/Desktop/')
         os.system('cp /home/pi/TFi_Tx_Platform/log_BLE_startup.txt /home/pi/Desktop/')
+        time.sleep(0.5)
+        os.system('sudo systemctl start TFiManualPhase.service')
+        os.system('sudo systemctl start TFiTimeSharing.service')    
+        os.system('sudo systemctl start TFiBLE.service')
     ##end of the sour code for Save and restart  
-        msgBox = QMessageBox()
-        msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Copied log file to Desktop")
-        msgBox.setStandardButtons(QMessageBox.Ok)     
-        returnValue = msgBox.exec()
-        if returnValue == QMessageBox.Ok:
-            pass
+    #    msgBox = QMessageBox()
+    #    msgBox.setIcon(QMessageBox.Information)
+    #    msgBox.setText("Copied log file to Desktop")
+    #    msgBox.setStandardButtons(QMessageBox.Ok)     
+    #    returnValue = msgBox.exec()
+    #    if returnValue == QMessageBox.Ok:
+    #        pass
         
     def Restart_DataLog_act(self):
     ###TO DO check the input text is not empty and valid url:
@@ -314,12 +323,14 @@ class AppWindow(QMainWindow):
             jsonFile.close()        
             ##save and restart related service
             print("[WARN] Save to database")
-            print("[WARN] stop current manual phase")
+            print("[WARN] sudo systemctl stop TFiManualPhase.service")
             os.system('sudo systemctl stop TFiManualPhase.service')
             os.system('sudo systemctl stop TFiTimeSharing.service')
             print("[WARN] sudo systemctl stop TFiTimeSharing.service")
             os.system('sudo systemctl stop TFiBLE.service')
             print("[WARN] sudo systemctl stop TFiBLE.service")
+            os.system('sudo systemctl stop TFiTCPModbus.service')
+            print("[WARN] sudo systemctl stop TFiTCPModbus.service")
             #os.system('sudo systemctl stop TFiLocalServer.service')
             #print("[WARN] sudo systemctl stop TFiLocalServer.service")
             #[vietmaiquoc] consider to check datachannel working or not
@@ -336,6 +347,8 @@ class AppWindow(QMainWindow):
             os.system('sudo systemctl start TFiBLE.service')
             print("[WARN] sudo systemctl start TFiTimeSharing.service")
             os.system('sudo systemctl start TFiTimeSharing.service')
+            print("[WARN] sudo systemctl start TFiTCPModbus.service")
+            os.system('sudo systemctl start TFiTCPModbus.service')
             #print("[WARN] sudo systemctl start TFiLocalServer.service")            
             #[vietmaiquoc] comment for testing the data difference on local and server
             #os.system('sudo systemctl start TFiLocalServer.service')
