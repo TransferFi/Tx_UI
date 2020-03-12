@@ -223,7 +223,8 @@ class AppWindow(QMainWindow):
         os.system('cp /home/pi/TFi_Tx_Platform/log_TimeSharing_startup.txt /home/pi/Desktop/')
         os.system('cp /home/pi/TFi_Tx_Platform/log_BLE_startup.txt /home/pi/Desktop/')
         time.sleep(0.5)
-        os.system('sudo systemctl start TFiManualPhase.service')
+        
+        print("[WARN] start current system after getting the log")
         os.system('sudo systemctl start TFiTimeSharing.service')    
         os.system('sudo systemctl start TFiBLE.service')
     ##end of the sour code for Save and restart  
@@ -346,7 +347,7 @@ class AppWindow(QMainWindow):
             print("[WARN] sudo systemctl start TFiBLE.service")    
             os.system('sudo systemctl start TFiBLE.service')
             print("[WARN] sudo systemctl start TFiTimeSharing.service")
-            os.system('sudo systemctl start TFiTimeSharing.service')
+            os.system('sudo systemctl start TFiTimeSharing.service') ######NEED TO CHECK FROM HERER
             print("[WARN] sudo systemctl start TFiTCPModbus.service")
             os.system('sudo systemctl start TFiTCPModbus.service')
             #print("[WARN] sudo systemctl start TFiLocalServer.service")            
