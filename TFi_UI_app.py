@@ -181,6 +181,7 @@ class AppWindow(QMainWindow):
             "Best_Phase_Shift" : "",
             "ID" : "",
             "MAC" : "",
+            "Phase_training" : [],
             "Portion_of_Time" : "",
             "Stream_to_Server" : ""
         }
