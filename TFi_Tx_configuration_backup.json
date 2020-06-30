@@ -1,0 +1,70 @@
+{
+    "Number_of_Rx": "3",
+    "Sensors_Attribute": [
+        {
+            "Best_Phase_Shift": "0,26,112,20",
+            "ID": "1",
+            "MAC": "C6:3C:73:CE:7B:21",
+            "Phase_training": [
+                [
+                    0,
+                    26,
+                    116,
+                    96
+                ],
+                [
+                    0,
+                    26,
+                    112,
+                    20
+                ]
+            ],
+            "Portion_of_Time": "0.2",
+            "Stream_to_Server": "1"
+        },
+        {
+            "Best_Phase_Shift": "0,12,170,109",
+            "ID": "2",
+            "MAC": "CF:A2:03:2A:09:50",
+            "Phase_training": [
+                [
+                    0,
+                    79,
+                    217,
+                    185
+                ],
+                [
+                    0,
+                    12,
+                    170,
+                    109
+                ]
+            ],
+            "Portion_of_Time": "0.65",
+            "Stream_to_Server": "1"
+        },
+	{
+            "Best_Phase_Shift": "151,47,55,0",
+            "ID": "4",
+            "MAC": "F2:3A:7A:39:36:25",
+            "Phase_training": [
+                [
+                    154,
+                    0,
+                    61,
+                    1
+                ],
+                [
+                    145,
+                    37,
+                    39,
+                    0
+                ]
+            ],
+            "Portion_of_Time": "0.15",
+            "Stream_to_Server": "0"
+        }
+    ],
+    "Time_Sharing_Enable": "1",
+    "Total_Time_Sharing_Loop": "60"
+}
