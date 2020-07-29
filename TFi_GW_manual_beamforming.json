@@ -1,0 +1,24 @@
+{
+    "sense_set_size": "3",
+    "beamforming_phase": "28,0,19,36",
+    "sense_attribute": [
+        {
+            "id": "1",
+            "mac": "DD:86:6E:A5:6A:A1",
+            "rspi": "0.4",
+            "v_cap": "3"
+        },   
+        {
+            "id": "2",
+            "mac": "C6:3C:73:CE:7B:21",
+            "rspi": "0.4",
+            "v_cap": "3"
+        },
+        {
+            "id": "3",
+            "mac": "CF:A2:03:2A:09:50",
+            "rspi": "0.4",
+            "v_cap": "3"
+        }
+    ]
+}
